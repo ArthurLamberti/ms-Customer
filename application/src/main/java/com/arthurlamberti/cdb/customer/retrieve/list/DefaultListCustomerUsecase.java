@@ -3,9 +3,11 @@ package com.arthurlamberti.cdb.customer.retrieve.list;
 import com.arthurlamberti.cdb.Pagination;
 import com.arthurlamberti.cdb.customer.CustomerGateway;
 
+import java.util.List;
+
 import static java.util.Objects.requireNonNull;
 
-public non-sealed class DefaultListCustomerUsecase extends ListCustomerUsecase {
+public class DefaultListCustomerUsecase extends ListCustomerUsecase {
 
     private final CustomerGateway customerGateway;
 
@@ -14,7 +16,10 @@ public non-sealed class DefaultListCustomerUsecase extends ListCustomerUsecase {
     }
 
     @Override
-    public Pagination<ListCustomerOutput> execute() {
-        return this.customerGateway.findAll().map(ListCustomerOutput::from);
+    public List<ListCustomerOutput> execute() {
+        return this.customerGateway.findAll()
+                .stream()
+                .map(ListCustomerOutput::from)
+                .toList();
     }
 }

@@ -33,6 +33,19 @@ public class Customer extends AggregateRoot<CustomerID> {
         return new Customer(anId,aName,aDocument,anEmail);
     }
 
+    public static Customer with(
+            final CustomerID id,
+            final String name,
+            final String document,
+            final String email) {
+        return new Customer(
+                id,
+                name,
+                document,
+                email
+        );
+    }
+
     @Override
     public void validate(ValidationHandler handler) {
         new CustomerValidator(handler, this).validate();

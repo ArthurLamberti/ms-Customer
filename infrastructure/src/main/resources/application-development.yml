@@ -1,8 +1,8 @@
 mysql:
   username: root
   password: 123456
-  schema: adm_videos
-  url: localhost:3306
+  schema: ms_customer
+  url: 127.0.0.1:3306
 
 server:
   port: 8080

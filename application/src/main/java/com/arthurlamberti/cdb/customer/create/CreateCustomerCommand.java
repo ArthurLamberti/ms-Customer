@@ -2,14 +2,14 @@ package com.arthurlamberti.cdb.customer.create;
 
 public record CreateCustomerCommand (
         String name,
-        String email,
-        String document
+        String document,
+        String email
 ){
     public static CreateCustomerCommand with(
             final String aName,
-            final String anEmail,
-            final String aDocument
+            final String aDocument,
+            final String anEmail
     ) {
-        return new CreateCustomerCommand(aName, anEmail, aDocument);
+        return new CreateCustomerCommand(aName, aDocument, anEmail);
     }
 }

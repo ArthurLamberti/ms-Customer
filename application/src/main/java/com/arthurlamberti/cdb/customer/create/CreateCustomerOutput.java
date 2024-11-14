@@ -7,4 +7,8 @@ public record CreateCustomerOutput (String id){
     public static CreateCustomerOutput from (final Customer aCustomer) {
         return new CreateCustomerOutput(aCustomer.getId().getValue());
     }
+
+    public static CreateCustomerOutput from(final String anId){
+        return new CreateCustomerOutput(anId);
+    }
 }
