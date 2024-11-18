@@ -7,7 +7,6 @@ import com.arthurlamberti.cdb.customer.create.CreateCustomerOutput;
 import com.arthurlamberti.cdb.customer.create.CreateCustomerUseCase;
 import com.arthurlamberti.cdb.customer.retrieve.list.ListCustomerUsecase;
 import com.arthurlamberti.cdb.infrastructure.customer.models.CreatecustomerRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

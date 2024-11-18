@@ -1,6 +1,5 @@
 package com.arthurlamberti.cdb.customer.retrieve.list;
 
-import com.arthurlamberti.cdb.Pagination;
 import com.arthurlamberti.cdb.customer.CustomerGateway;
 
 import java.util.List;

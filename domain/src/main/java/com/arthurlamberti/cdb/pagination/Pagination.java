@@ -1,4 +1,4 @@
-package com.arthurlamberti.cdb;
+package com.arthurlamberti.cdb.pagination;
 
 import java.util.List;
 import java.util.function.Function;

@@ -1,6 +1,5 @@
 package com.arthurlamberti.cdb.infrastructure.customer;
 
-import com.arthurlamberti.cdb.Pagination;
 import com.arthurlamberti.cdb.customer.Customer;
 import com.arthurlamberti.cdb.customer.CustomerGateway;
 import com.arthurlamberti.cdb.infrastructure.customer.persistence.CustomerJpaEntity;

@@ -16,7 +16,7 @@ plugins {
     id 'org.flywaydb.flyway' version '9.11.0'
 }
 
-group 'com.arthurlamberti.cdb.infrasctructure'
+group 'com.arthurlamberti.cdb.infrastructure'
 
 dependencies {
     implementation(project(":domain"))
