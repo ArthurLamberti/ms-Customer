@@ -31,8 +31,9 @@ public class CustomerController implements CustomerAPI {
     public ResponseEntity<?> createCustomer(CreatecustomerRequest input) {
         final var aCommand = CreateCustomerCommand.with(
                 input.name(),
+                input.document(),
                 input.email(),
-                input.document()
+                input.balance()
         );
        final var output = this.createCustomerUseCase.execute(aCommand);
 

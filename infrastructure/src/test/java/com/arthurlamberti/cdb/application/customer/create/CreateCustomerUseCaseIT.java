@@ -41,7 +41,8 @@ public class CreateCustomerUseCaseIT {
         final var aCommand = CreateCustomerCommand.with(
                 expectedName,
                 expectedDocument,
-                expectedEmail
+                expectedEmail,
+                Fixture.positiveNumber().doubleValue()
         );
 
         final var actualResult = useCase.execute(aCommand);
@@ -67,7 +68,7 @@ public class CreateCustomerUseCaseIT {
         final var expectedErrorCount = 1;
 
         assertEquals(0, customerRepository.count());
-        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail);
+        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualException);
@@ -87,7 +88,7 @@ public class CreateCustomerUseCaseIT {
         final var expectedErrorCount = 1;
 
         assertEquals(0, customerRepository.count());
-        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail);
+        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualException);
@@ -107,7 +108,7 @@ public class CreateCustomerUseCaseIT {
         final var expectedErrorCount = 1;
 
         assertEquals(0, customerRepository.count());
-        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail);
+        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualException);
@@ -127,7 +128,7 @@ public class CreateCustomerUseCaseIT {
         final var expectedErrorCount = 1;
 
         assertEquals(0, customerRepository.count());
-        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail);
+        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualException);
@@ -147,7 +148,7 @@ public class CreateCustomerUseCaseIT {
         final var expectedErrorCount = 1;
 
         assertEquals(0, customerRepository.count());
-        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail);
+        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualException);
@@ -167,7 +168,7 @@ public class CreateCustomerUseCaseIT {
         final var expectedErrorCount = 1;
 
         assertEquals(0, customerRepository.count());
-        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail);
+        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualException);
@@ -190,7 +191,7 @@ public class CreateCustomerUseCaseIT {
         insertCustomer(Fixture.document(), expectedEmail);
         assertEquals(1, customerRepository.count());
 
-        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail);
+        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualException);
@@ -214,7 +215,7 @@ public class CreateCustomerUseCaseIT {
         insertCustomer(expectedDocument, Fixture.email());
         assertEquals(1, customerRepository.count());
 
-        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail);
+        final var aCommand = CreateCustomerCommand.with(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualException);
@@ -225,7 +226,7 @@ public class CreateCustomerUseCaseIT {
     }
 
     private void insertCustomer(final String document, final String email) {
-        final var aCommand = CreateCustomerCommand.with(Fixture.name(), document, email);
+        final var aCommand = CreateCustomerCommand.with(Fixture.name(), document, email, Fixture.positiveNumber().doubleValue());
         useCase.execute(aCommand);
     }
 

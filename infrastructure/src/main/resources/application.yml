@@ -34,3 +34,11 @@ spring:
       "[hibernate.connection.provider_disables_autocommit]": true
       # Para aumentar a performance ao máximo, desabilitamos o auto-commit e o open-in-view.
       # https://vladmihalcea.com/why-you-should-always-use-hibernate-connection-provider_disables_autocommit-for-resource-local-jpa-transactions/
+
+  feign:
+    client:
+      config:
+        default: # Configurações padrão para todos os clientes Feign
+          connectTimeout: 5000   # Tempo de conexão em milissegundos
+          readTimeout: 10000     # Tempo de leitura em milissegundos
+          loggerLevel: BASIC

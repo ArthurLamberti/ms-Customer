@@ -46,7 +46,7 @@ public class CustomerAPITest {
         final var expectedEmail = Fixture.email();
         final var expectedId = Fixture.uuid();
 
-        final var anInput = new CreatecustomerRequest(expectedName, expectedDocument, expectedEmail);
+        final var anInput = new CreatecustomerRequest(expectedName, expectedDocument, expectedEmail, Fixture.positiveNumber().doubleValue());
 
         when(createCustomerUseCase.execute(any())).thenReturn(CreateCustomerOutput.from(expectedId));
 

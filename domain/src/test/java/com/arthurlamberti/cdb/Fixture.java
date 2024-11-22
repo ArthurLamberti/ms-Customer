@@ -59,8 +59,8 @@ public final class Fixture {
         public static Customer validCustomer(){
             return Customer.newCustomer(
                     name(),
-                    email(),
-                    document()
+                    document(),
+                    email()
             );
         }
     }
