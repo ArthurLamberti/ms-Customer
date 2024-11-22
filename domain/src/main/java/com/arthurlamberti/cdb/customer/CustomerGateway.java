@@ -1,6 +1,7 @@
 package com.arthurlamberti.cdb.customer;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerGateway {
 
@@ -10,4 +11,5 @@ public interface CustomerGateway {
 
     boolean existsByDocument(String document);
     boolean existsByEmail(String email);
+    Optional<Customer> findById(String customerId);
 }

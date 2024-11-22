@@ -16,7 +16,12 @@ public class CustomerWalletGateway implements CustomerWalletExternal {
     }
 
     @Override
-    public String createWallet(CreateWalletDomain request) {
+    public String createWallet(final CreateWalletDomain request) {
         return customerWalletFeign.create(CreateWalletRequest.from(request));
+    }
+
+    @Override
+    public Double getBalance(final String customerId) {
+        return customerWalletFeign.getByCustomerId(customerId).balance();
     }
 }

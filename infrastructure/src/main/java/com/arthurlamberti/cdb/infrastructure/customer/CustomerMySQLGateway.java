@@ -6,7 +6,9 @@ import com.arthurlamberti.cdb.infrastructure.customer.persistence.CustomerJpaEnt
 import com.arthurlamberti.cdb.infrastructure.customer.persistence.CustomerRepository;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
@@ -40,5 +42,10 @@ public class CustomerMySQLGateway implements CustomerGateway {
     @Override
     public boolean existsByEmail(String email) {
         return this.customerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Optional<Customer> findById(String customerId) {
+        return this.customerRepository.findById(customerId).map(CustomerJpaEntity::toAggregate);
     }
 }

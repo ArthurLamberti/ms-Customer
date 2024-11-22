@@ -4,6 +4,8 @@ import com.arthurlamberti.cdb.adapters.feing.CustomerWalletExternal;
 import com.arthurlamberti.cdb.customer.CustomerGateway;
 import com.arthurlamberti.cdb.customer.create.CreateCustomerUseCase;
 import com.arthurlamberti.cdb.customer.create.DefaultCreateCustomerUseCase;
+import com.arthurlamberti.cdb.customer.retrieve.get.DefaultGetCustomerUseCase;
+import com.arthurlamberti.cdb.customer.retrieve.get.GetCustomerUseCase;
 import com.arthurlamberti.cdb.customer.retrieve.list.DefaultListCustomerUsecase;
 import com.arthurlamberti.cdb.customer.retrieve.list.ListCustomerUsecase;
 import org.springframework.context.annotation.Bean;
@@ -30,5 +32,10 @@ public class CustomerUseCaseConfig {
     @Bean
     public ListCustomerUsecase listCustomerUsecase(){
         return new DefaultListCustomerUsecase(customerGateway);
+    }
+
+    @Bean
+    public GetCustomerUseCase getCustomerUseCase() {
+        return new DefaultGetCustomerUseCase(customerGateway, customerWalletExternal);
     }
 }

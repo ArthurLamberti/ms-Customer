@@ -4,6 +4,7 @@ import com.arthurlamberti.cdb.adapters.models.CreateWalletDomain;
 
 public interface CustomerWalletExternal {
 
-    String createWallet(CreateWalletDomain request);
+    String createWallet(final CreateWalletDomain request);
 
+    Double getBalance(final String customerId);
 }

@@ -1,5 +1,6 @@
 package com.arthurlamberti.cdb.infrastructure.api;
 
+import com.arthurlamberti.cdb.customer.retrieve.get.GetCustomerOutput;
 import com.arthurlamberti.cdb.infrastructure.customer.models.CreatecustomerRequest;
 import com.arthurlamberti.cdb.infrastructure.customer.models.ListCustomerResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,10 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +38,16 @@ public interface CustomerAPI {
             @ApiResponse(responseCode = "500", description = "Internal error server"),
     })
     List<ListCustomerResponse> listCustomer();
+
+    @GetMapping(
+            value = "/{customerId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Operation(summary = "Get a customers")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Customer get successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal error server"),
+    })
+    GetCustomerOutput getCustomer(@PathVariable String customerId);
 
 }

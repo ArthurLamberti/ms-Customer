@@ -1,5 +1,7 @@
 package com.arthurlamberti.cdb.infrastructure.api.controllers;
 
+import com.arthurlamberti.cdb.customer.retrieve.get.GetCustomerOutput;
+import com.arthurlamberti.cdb.customer.retrieve.get.GetCustomerUseCase;
 import com.arthurlamberti.cdb.customer.retrieve.list.ListCustomerUsecase;
 import com.arthurlamberti.cdb.infrastructure.api.CustomerAPI;
 import com.arthurlamberti.cdb.infrastructure.customer.models.CreatecustomerRequest;
@@ -18,13 +20,16 @@ public class CustomerController implements CustomerAPI {
 
     private final CreateCustomerUseCase createCustomerUseCase;
     private final ListCustomerUsecase listCustomerUsecase;
+    private final GetCustomerUseCase getCustomerUseCase;
 
     public CustomerController(
             final CreateCustomerUseCase createCustomerUseCase,
-            final ListCustomerUsecase listCustomerUsecase
+            final ListCustomerUsecase listCustomerUsecase,
+            final GetCustomerUseCase getCustomerUseCase
     ) {
         this.createCustomerUseCase = createCustomerUseCase;
         this.listCustomerUsecase = listCustomerUsecase;
+        this.getCustomerUseCase = getCustomerUseCase;
     }
 
     @Override
@@ -46,6 +51,11 @@ public class CustomerController implements CustomerAPI {
                 .stream()
                 .map(CustomerApiPresenter::present)
                 .toList();
+    }
+
+    @Override
+    public GetCustomerOutput getCustomer(String customerId) {
+        return this.getCustomerUseCase.execute(customerId);
     }
 
 }
