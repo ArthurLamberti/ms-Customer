@@ -1,18 +1,18 @@
 version: '3.7'
 
 services:
-  app:
-    container_name: ms_customer_app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql
-    networks:
-      - ms_customer_network
+#  app:
+#    container_name: ms_customer_app
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - mysql
+#    networks:
+#      - ms_customer_network
 
   mysql:
     container_name: ms_customer_mysql
