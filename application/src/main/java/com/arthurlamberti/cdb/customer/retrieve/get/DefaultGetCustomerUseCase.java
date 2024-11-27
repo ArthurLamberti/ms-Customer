@@ -22,7 +22,7 @@ public class DefaultGetCustomerUseCase extends GetCustomerUseCase{
     public GetCustomerOutput execute(String customerId) {
         final var customer = this.customerGateway.findById(customerId);
         if (customer.isEmpty()) {
-            throw NotFoundException.with(new Error("Customer not found to id %s".formatted(customer)));
+            throw NotFoundException.with(new Error("Customer not found to id %s".formatted(customerId)));
         }
         final var balance = this.customerWalletExternal.getBalance(customerId);
 

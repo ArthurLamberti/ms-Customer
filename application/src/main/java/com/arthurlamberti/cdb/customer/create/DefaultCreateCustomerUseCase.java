@@ -34,10 +34,10 @@ public class DefaultCreateCustomerUseCase extends CreateCustomerUseCase {
                 )
         );
         if (this.customerGateway.existsByDocument(aCommand.document())) {
-            notification.append(new Error("Customer already exists with document " + aCustomer.getDocument()));
+            notification.append(new Error("Customer already exists with document '%s'".formatted(aCustomer.getDocument())));
         }
         if (this.customerGateway.existsByEmail(aCommand.email())) {
-            notification.append(new Error("Customer already exists with email " + aCustomer.getEmail()));
+            notification.append(new Error("Customer already exists with email '%s'".formatted(aCustomer.getEmail())));
         }
 
         if (notification.hasError()) {

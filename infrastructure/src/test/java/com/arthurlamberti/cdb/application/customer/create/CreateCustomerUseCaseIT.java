@@ -2,10 +2,13 @@ package com.arthurlamberti.cdb.application.customer.create;
 
 import com.arthurlamberti.cdb.Fixture;
 import com.arthurlamberti.cdb.IntegrationTest;
+import com.arthurlamberti.cdb.adapters.feing.CustomerWalletExternal;
+import com.arthurlamberti.cdb.customer.Customer;
 import com.arthurlamberti.cdb.customer.CustomerGateway;
 import com.arthurlamberti.cdb.customer.create.CreateCustomerCommand;
 import com.arthurlamberti.cdb.customer.create.CreateCustomerUseCase;
 import com.arthurlamberti.cdb.exceptions.NotificationException;
+import com.arthurlamberti.cdb.infrastructure.customer.persistence.CustomerJpaEntity;
 import com.arthurlamberti.cdb.infrastructure.customer.persistence.CustomerRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,8 +18,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @IntegrationTest
 public class CreateCustomerUseCaseIT {
@@ -29,6 +31,9 @@ public class CreateCustomerUseCaseIT {
 
     @SpyBean
     private CustomerGateway customerGateway;
+
+    @SpyBean
+    private CustomerWalletExternal customerWalletExternal;
 
     @Test
     public void givenValidCommand_whenCallsCreateCustomer_shouldReturnCustomerId() {
@@ -55,7 +60,11 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedName, actualCustomer.getName());
         assertEquals(expectedDocument, actualCustomer.getDocument());
         assertEquals(expectedEmail, actualCustomer.getEmail());
+
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
         verify(customerGateway, times(1)).create(any());
+        verify(customerWalletExternal, times(1)).createWallet(any());
     }
 
     @Test
@@ -75,7 +84,10 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedErrorCount, actualException.getErrors().size());
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
 
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
         verify(customerGateway, times(0)).create(any());
+        verify(customerWalletExternal, times(0)).createWallet(any());
     }
 
     @Test
@@ -95,7 +107,10 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedErrorCount, actualException.getErrors().size());
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
 
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
         verify(customerGateway, times(0)).create(any());
+        verify(customerWalletExternal, times(0)).createWallet(any());
     }
 
     @Test
@@ -115,7 +130,10 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedErrorCount, actualException.getErrors().size());
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
 
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
         verify(customerGateway, times(0)).create(any());
+        verify(customerWalletExternal, times(0)).createWallet(any());
     }
 
     @Test
@@ -135,7 +153,10 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedErrorCount, actualException.getErrors().size());
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
 
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
         verify(customerGateway, times(0)).create(any());
+        verify(customerWalletExternal, times(0)).createWallet(any());
     }
 
     @Test
@@ -155,7 +176,10 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedErrorCount, actualException.getErrors().size());
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
 
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
         verify(customerGateway, times(0)).create(any());
+        verify(customerWalletExternal, times(0)).createWallet(any());
     }
 
     @Test
@@ -175,7 +199,10 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedErrorCount, actualException.getErrors().size());
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
 
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
         verify(customerGateway, times(0)).create(any());
+        verify(customerWalletExternal, times(0)).createWallet(any());
     }
 
     @Test
@@ -184,7 +211,7 @@ public class CreateCustomerUseCaseIT {
         final var expectedDocument = Fixture.document();
         final var expectedEmail = Fixture.email();
 
-        final var expectedErrorMessage = "Customer already exists with email " + expectedEmail;
+        final var expectedErrorMessage = "Customer already exists with email '%s'".formatted(expectedEmail);
         final var expectedErrorCount = 1;
 
         assertEquals(0, customerRepository.count());
@@ -198,7 +225,10 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedErrorCount, actualException.getErrors().size());
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
 
-        verify(customerGateway, times(1)).create(any());
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
+        verify(customerGateway, times(0)).create(any());
+        verify(customerWalletExternal, times(0)).createWallet(any());
     }
 
 
@@ -208,7 +238,7 @@ public class CreateCustomerUseCaseIT {
         final var expectedDocument = Fixture.document();
         final var expectedEmail = Fixture.email();
 
-        final var expectedErrorMessage = "Customer already exists with document " + expectedDocument;
+        final var expectedErrorMessage = "Customer already exists with document '%s'".formatted(expectedDocument);
         final var expectedErrorCount = 1;
 
         assertEquals(0, customerRepository.count());
@@ -222,12 +252,15 @@ public class CreateCustomerUseCaseIT {
         assertEquals(expectedErrorCount, actualException.getErrors().size());
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
 
-        verify(customerGateway, times(1)).create(any());
+        verify(customerGateway, times(1)).existsByDocument(any());
+        verify(customerGateway, times(1)).existsByEmail(any());
+        verify(customerGateway, times(0)).create(any());
+        verify(customerWalletExternal, times(0)).createWallet(any());
     }
 
     private void insertCustomer(final String document, final String email) {
-        final var aCommand = CreateCustomerCommand.with(Fixture.name(), document, email, Fixture.positiveNumber().doubleValue());
-        useCase.execute(aCommand);
+        final var customer = CustomerJpaEntity.from(Customer.newCustomer(Fixture.name(), document, email));
+        this.customerRepository.saveAndFlush(customer);
     }
 
 }
